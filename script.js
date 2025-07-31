@@ -1,29 +1,33 @@
 const output = document.getElementById('output');
 const copyBtn = document.getElementById('copyBtn');
-const generateBtn = document.getElementById('generateBtn');
+const lengthSlider = document.getElementById('length');
+const lengthDisplay = document.getElementById('length-display');
 
+// Character sets
 const upperSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const lowerSet = "abcdefghijklmnopqrstuvwxyz";
 const numberSet = "0123456789";
 const symbolSet = "!@#$%^&*()_+-=[]{}|;:,.<>?/";
 
-const getRandomChar = (set) => set[Math.floor(Math.random() * set.length)];
+function getRandomChar(set) {
+  return set[Math.floor(Math.random() * set.length)];
+}
 
-const generatePassword = () => {
-  const length = document.getElementById('length').value;
-  const includeUpper = document.getElementById('upper').checked;
-  const includeLower = document.getElementById('lower').checked;
-  const includeNumber = document.getElementById('number').checked;
-  const includeSymbol = document.getElementById('symbol').checked;
+function generatePassword() {
+  const length = parseInt(lengthSlider.value);
+  const useUpper = document.getElementById('upper').checked;
+  const useLower = document.getElementById('lower').checked;
+  const useNumber = document.getElementById('number').checked;
+  const useSymbol = document.getElementById('symbol').checked;
 
   let validChars = '';
-  if (includeUpper) validChars += upperSet;
-  if (includeLower) validChars += lowerSet;
-  if (includeNumber) validChars += numberSet;
-  if (includeSymbol) validChars += symbolSet;
+  if (useUpper) validChars += upperSet;
+  if (useLower) validChars += lowerSet;
+  if (useNumber) validChars += numberSet;
+  if (useSymbol) validChars += symbolSet;
 
   if (!validChars) {
-    output.value = "Select at least one option";
+    output.value = "Select at least one option!";
     return;
   }
 
@@ -33,12 +37,26 @@ const generatePassword = () => {
   }
 
   output.value = password;
-};
-
-generateBtn.addEventListener('click', generatePassword);
+}
 
 copyBtn.addEventListener('click', () => {
-  output.select();
-  document.execCommand('copy');
-  alert("Password copied to clipboard!");
+  if (output.value) {
+    output.select();
+    document.execCommand('copy');
+    alert("Password copied to clipboard!");
+  }
 });
+
+// Update length display text
+lengthSlider.addEventListener('input', () => {
+  lengthDisplay.textContent = lengthSlider.value;
+  generatePassword();
+});
+
+// Re-generate when any checkbox changes
+document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+  cb.addEventListener('change', generatePassword);
+});
+
+// Initial generation
+generatePassword();
