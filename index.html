@@ -12,23 +12,22 @@
     <h1>Password Generator 🔐</h1>
 
     <div class="controls">
-      <label>Password Length:
-        <input type="number" id="length" min="4" max="30" value="12">
-      </label><br>
-            <label><input type="checkbox" id="upper" checked> Add Uppercase </label><br>
-      <label><input type="checkbox" id="lower" checked> Add Lowercase </label><br>
-      <label><input type="checkbox" id="number" checked>Add Numbers </label><br>
-      <label><input type="checkbox" id="symbol"> Add special Character </label><br>
-    </div>
+      <label>Password Length: <span id="length-display">12</span></label>
+      <input type="range" id="length" min="4" max="30" value="12">
 
-    <button id="generateBtn">Generate Password</button>
+      <label><input type="checkbox" id="upper" checked> Add Uppercase</label>
+      <label><input type="checkbox" id="lower" checked> Add Lowercase</label>
+      <label><input type="checkbox" id="number" checked> Add Numbers</label>
+      <label><input type="checkbox" id="symbol"> Add Special Characters</label>
+    </div>
   </div>
 
   <div class="output-box">
-      <input type="text" id="output" readonly>
-      <button id="copyBtn">Copy</button>
-    </div>
+    <input type="text" id="output" readonly>
+    <button id="copyBtn">Copy</button>
+  </div>
 </div>
-  <script src="script.js"></script>
+
+<script src="script.js"></script>
 </body>
 </html>
